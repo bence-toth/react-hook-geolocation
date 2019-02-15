@@ -1,0 +1,30 @@
+{
+  "name": "react-hook-geolocation",
+  "version": "1.0.0",
+  "description": "React hook for geolocation access",
+  "keywords": [
+    "react",
+    "hook",
+    "geolocation"
+  ],
+  "repository": "git@github.com:bence-toth/react-hook-geolocation.git",
+  "license": "LGPL",
+  "author": "Bence A. Toth <tothab@gmail.com>",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && babel src --out-dir dist",
+    "build:watch": "babel src --out-dir dist --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge",
+    "react": "^16.8.0-alpha.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0-alpha.1"
+  }
+}
+
