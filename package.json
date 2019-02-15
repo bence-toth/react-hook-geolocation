@@ -21,10 +21,10 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge",
-    "react": "^16.8.0-alpha.1"
+    "react": "^16.8.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0-alpha.1"
+    "react": "^16.8.0"
   }
 }
 
