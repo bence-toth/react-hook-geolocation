@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 
-const useGeolocation = () => {
+const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}) => {
 
   const [coordinates, setCoordinates] = useState({
     accuracy: null,
@@ -55,7 +55,11 @@ const useGeolocation = () => {
     let watchId
     if (navigator.geolocation && navigator.permissions) {
       navigator.geolocation.getCurrentPosition(updateCoordinates, setError)
-      watchId = navigator.geolocation.watchPosition(updateCoordinates, setError)
+      watchId = navigator.geolocation.watchPosition(
+        updateCoordinates,
+        setError,
+        {enableHighAccuracy, maximumAge, timeout}
+      )
     }
     return () => {
       if (watchId) {
