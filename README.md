@@ -74,7 +74,7 @@ const geolocation = useGeolocation({}, onGeolocationUpdate)
 
 ## Notes
 
-Accss to data from the Geolocation API needs user permission.
+Access to data from the Geolocation API needs user permission.
 
 If permission to access geolocation was previously granted by the user, geolocation data will be available. If permission to access was not granted previously, the user will be prompted to give permission when the component mounts.
 
