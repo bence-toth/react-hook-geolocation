@@ -66,7 +66,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
     }
 
     let watchId
-    if (navigator.geolocation && navigator.permissions) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(updateCoordinates, setError)
       watchId = navigator.geolocation.watchPosition(
         updateCoordinates,
