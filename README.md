@@ -1,6 +1,6 @@
 # react-hook-geolocation
 
-A React hook to access data from the Geolocation API
+A React hook to access data from the [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API).
 
 ## Usage
 
@@ -30,6 +30,20 @@ const ComponentWithGeolocation = () => {
 }
 ```
 
+### Using `PositionOptions`
+
+[There is a way](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API#Fine_tuning_response) to use `PositionOptions` to fine tune response coming from `watchPosition` of the Geolocation API.
+
+If you want to use this feature, simply provide `useGeolocation` with a `PositionOptions` object:
+
+```jsx
+const geolocation = useGeolocation({
+  enableHighAccuracy: true, 
+  maximumAge:         15000, 
+  timeout:            12000
+})
+```
+
 ## Notes
 
 Accss to data from the Geolocation API needs user permission.
@@ -42,7 +56,7 @@ In permission was previously denied by the user, if the user agent does not supp
 
 Geolocation API is available only in secure contexts (a.k.a. only using HTTPS).
 
-Getting geolocation data can take time, especially with high accuracy enabled - getting a GPS fix can take a minute.
+Getting geolocation data can take time, especially with high accuracy enabled – getting a GPS fix can take up to a minute.
 
 ## Contributions
 
