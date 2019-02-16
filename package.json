@@ -1,6 +1,6 @@
 {
   "name": "react-hook-geolocation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hook for geolocation access",
   "keywords": [
     "react",
@@ -27,4 +27,3 @@
     "react": "^16.8.0"
   }
 }
-
