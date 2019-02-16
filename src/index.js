@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 
-const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}) => {
+const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback) => {
 
   const [coordinates, setCoordinates] = useState({
     accuracy: null,
@@ -36,6 +36,19 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}) => {
         timestamp,
         error: null
       })
+      if (callback instanceof Function) {
+        callback({
+          accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          latitude,
+          longitude,
+          speed,
+          timestamp,
+          error: null
+        })
+      }
     }
     
     const setError = error => {
