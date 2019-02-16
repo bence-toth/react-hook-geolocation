@@ -51,12 +51,12 @@ You can supply a second parameter to `useGeolocation` which will be called every
 If you don't use `PositionOptions`, I recommend that you supply `{}` as your first argument.
 
 ```jsx
-  const onGeolocationUpdate = geolocation => {
-    console.log('Here’s some new data from the Geolocation API: ')
-    console.table(geolocation)
-  }
+const onGeolocationUpdate = geolocation => {
+  console.log('Here’s some new data from the Geolocation API: ')
+  console.table(geolocation)
+}
 
-  const geolocation = useGeolocation({}, onGeolocationUpdate)
+const geolocation = useGeolocation({}, onGeolocationUpdate)
 ```
 
 ## Notes
