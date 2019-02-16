@@ -44,6 +44,21 @@ const geolocation = useGeolocation({
 })
 ```
 
+### Using a callback function
+
+You can supply a second parameter to `useGeolocation` which will be called every time the data from the Geolocation API is updated. This callback function is then called with the `geolocation` object with all its properties.
+
+If you don't use `PositionOptions`, I recommend that you supply `{}` as your first argument.
+
+```jsx
+  const onGeolocationUpdate = geolocation => {
+    console.log('Here’s some new data from the Geolocation API: ')
+    console.table(geolocation)
+  }
+
+  const geolocation = useGeolocation({}, onGeolocationUpdate)
+```
+
 ## Notes
 
 Accss to data from the Geolocation API needs user permission.
