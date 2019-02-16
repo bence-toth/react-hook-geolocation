@@ -2,6 +2,20 @@
 
 A React hook to access data from the [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API).
 
+## Installation
+
+Using `npm`:
+
+```sh
+npm install --save react-hook-geolocation
+```
+
+Using `yarn`:
+
+```sh
+yarn add react-hook-geolocation
+```
+
 ## Usage
 
 ```jsx
