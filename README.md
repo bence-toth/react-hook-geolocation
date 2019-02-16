@@ -2,6 +2,20 @@
 
 A React hook to access data from the [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API).
 
+## Installation
+
+Using `npm`:
+
+```sh
+npm install --save react-hook-geolocation
+```
+
+Using `yarn`:
+
+```sh
+yarn add react-hook-geolocation
+```
+
 ## Usage
 
 ```jsx
@@ -60,7 +74,7 @@ const geolocation = useGeolocation({}, onGeolocationUpdate)
 
 ## Notes
 
-Accss to data from the Geolocation API needs user permission.
+Access to data from the Geolocation API needs user permission.
 
 If permission to access geolocation was previously granted by the user, geolocation data will be available. If permission to access was not granted previously, the user will be prompted to give permission when the component mounts.
 
