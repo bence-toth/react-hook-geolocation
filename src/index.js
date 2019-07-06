@@ -14,7 +14,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
     error: null
   })
 
-  useEffect(() => {    
+  useEffect(() => {
     const updateCoordinates = ({coords = {}, timestamp}) => {
       const {
         accuracy,
@@ -50,7 +50,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
         })
       }
     }
-    
+
     const setError = error => {
       updateCoordinates({
         accuracy: null,
@@ -80,9 +80,8 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
       }
     }
   }, [])
-  
+
   return coordinates
 }
 
 export default useGeolocation
-
