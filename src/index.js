@@ -15,7 +15,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
   })
 
   useEffect(() => {
-    let didCancel = false
+    let didCancel
     const updateCoordinates = ({coords = {}, timestamp}) => {
       const {
         accuracy,
@@ -52,23 +52,22 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
           })
         }
       }
-      return () => {
-        didCancel = true
-      }
     }
 
     const setError = error => {
-      updateCoordinates({
-        accuracy: null,
-        altitude: null,
-        altitudeAccuracy: null,
-        heading: null,
-        latitude: null,
-        longitude: null,
-        speed: null,
-        timestamp: null,
-        error
-      })
+      if (!didCancel) {
+        updateCoordinates({
+          accuracy: null,
+          altitude: null,
+          altitudeAccuracy: null,
+          heading: null,
+          latitude: null,
+          longitude: null,
+          speed: null,
+          timestamp: null,
+          error
+        })
+      }
     }
 
     let watchId
@@ -84,6 +83,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
       if (watchId) {
         navigator.geolocation.clearWatch(watchId)
       }
+      didCancel = true
     }
   }, [])
 
