@@ -56,7 +56,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
 
     const setError = error => {
       if (!didCancel) {
-        updateCoordinates({
+        setCoordinates({
           accuracy: null,
           altitude: null,
           altitudeAccuracy: null,
