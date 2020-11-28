@@ -85,7 +85,7 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
       }
       didCancel = true
     }
-  }, [])
+  }, [callback, enableHighAccuracy, maximumAge, timeout])
 
   return coordinates
 }
