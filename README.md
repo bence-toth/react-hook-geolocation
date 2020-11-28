@@ -78,7 +78,7 @@ Access to data from the Geolocation API needs user permission.
 
 If permission to access geolocation was previously granted by the user, geolocation data will be available. If permission to access was not granted previously, the user will be prompted to give permission when the component mounts.
 
-In permission was previously denied by the user, if the user agent does not support the Geolocation API, or if some other error occurs, the object returned from the hook will still contain all members, and values will be `null`. If you are lucky, `geolocation.error.message` and `geolocation.error.code` might contain something useful to help you determine what went wrong.
+If permission was previously denied by the user, if the user agent does not support the Geolocation API, or if some other error occurs, the object returned from the hook will still contain all members, and values will be `null`. If you are lucky, `geolocation.error.message` and `geolocation.error.code` might contain something useful to help you determine what went wrong.
 
 ## Caveats
 
