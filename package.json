@@ -21,7 +21,7 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "babel-core": "^7.0.0-bridge",
-    "react": "^16.14.0"
+    "react": "^17.0.1"
   },
   "peerDependencies": {
     "react": "^16.8.0"
