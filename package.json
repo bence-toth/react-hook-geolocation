@@ -1,6 +1,6 @@
 {
   "name": "react-hook-geolocation",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "React hook for geolocation access",
   "keywords": [
     "react",
@@ -24,6 +24,6 @@
     "react": "^17.0.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17"
+    "react": "^16.8.0 || ^17 || ^18"
   }
 }
