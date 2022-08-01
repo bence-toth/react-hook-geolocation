@@ -87,6 +87,6 @@ Getting geolocation data can take time, especially with high accuracy enabled â€
 
 Contributions are welcome. File bug reports, create pull requests, feel free to reach out at tothab@gmail.com.
 
-## Licence
+## License
 
-MIT
+[MIT](./LICENSE)
