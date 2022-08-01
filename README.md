@@ -19,29 +19,27 @@ yarn add react-hook-geolocation
 ## Usage
 
 ```jsx
-import React from 'react'
-import useGeolocation from 'react-hook-geolocation'
+import React from "react";
+import useGeolocation from "react-hook-geolocation";
 
 const ComponentWithGeolocation = () => {
-  const geolocation = useGeolocation()
+  const geolocation = useGeolocation();
 
-  return !geolocation.error
-    ? (
-      <ul>
-        <li>Latitude:          {geolocation.latitude}</li>
-        <li>Longitude:         {geolocation.longitude}</li>
-        <li>Location accuracy: {geolocation.accuracy}</li>
-        <li>Altitude:          {geolocation.altitude}</li>
-        <li>Altitude accuracy: {geolocation.altitudeAccuracy}</li>
-        <li>Heading:           {geolocation.heading}</li>
-        <li>Speed:             {geolocation.speed}</li>
-        <li>Timestamp:         {geolocation.timestamp}</li>
-      </ul>
-    )
-    : (
-      <p>No geolocation, sorry.</p>
-    )
-}
+  return !geolocation.error ? (
+    <ul>
+      <li>Latitude: {geolocation.latitude}</li>
+      <li>Longitude: {geolocation.longitude}</li>
+      <li>Location accuracy: {geolocation.accuracy}</li>
+      <li>Altitude: {geolocation.altitude}</li>
+      <li>Altitude accuracy: {geolocation.altitudeAccuracy}</li>
+      <li>Heading: {geolocation.heading}</li>
+      <li>Speed: {geolocation.speed}</li>
+      <li>Timestamp: {geolocation.timestamp}</li>
+    </ul>
+  ) : (
+    <p>No geolocation, sorry.</p>
+  );
+};
 ```
 
 ### Using `PositionOptions`
@@ -52,10 +50,10 @@ If you want to use this feature, simply provide `useGeolocation` with a `Positio
 
 ```jsx
 const geolocation = useGeolocation({
-  enableHighAccuracy: true, 
-  maximumAge:         15000, 
-  timeout:            12000
-})
+  enableHighAccuracy: true,
+  maximumAge: 15000,
+  timeout: 12000,
+});
 ```
 
 ### Using a callback function
@@ -65,11 +63,11 @@ You can supply a second parameter to `useGeolocation` which will be called every
 If you don't use `PositionOptions`, I recommend that you supply `{}` as your first argument.
 
 ```jsx
-const onGeolocationUpdate = geolocation => {
-  console.log('Here’s some new data from the Geolocation API: ', geolocation)
-}
+const onGeolocationUpdate = (geolocation) => {
+  console.log("Here’s some new data from the Geolocation API: ", geolocation);
+};
 
-const geolocation = useGeolocation({}, onGeolocationUpdate)
+const geolocation = useGeolocation({}, onGeolocationUpdate);
 ```
 
 ## Notes

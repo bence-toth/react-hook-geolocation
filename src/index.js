@@ -1,7 +1,9 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 
-const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback) => {
-
+const useGeolocation = (
+  { enableHighAccuracy, maximumAge, timeout } = {},
+  callback
+) => {
   const [coordinates, setCoordinates] = useState({
     accuracy: null,
     altitude: null,
@@ -11,12 +13,12 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
     longitude: null,
     speed: null,
     timestamp: null,
-    error: null
-  })
+    error: null,
+  });
 
   useEffect(() => {
-    let didCancel
-    const updateCoordinates = ({coords = {}, timestamp}) => {
+    let didCancel;
+    const updateCoordinates = ({ coords = {}, timestamp }) => {
       const {
         accuracy,
         altitude,
@@ -24,8 +26,8 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
         heading,
         latitude,
         longitude,
-        speed
-      } = coords
+        speed,
+      } = coords;
       if (!didCancel) {
         setCoordinates({
           accuracy,
@@ -36,8 +38,8 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
           longitude,
           speed,
           timestamp,
-          error: null
-        })
+          error: null,
+        });
         if (callback instanceof Function) {
           callback({
             accuracy,
@@ -48,13 +50,13 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
             longitude,
             speed,
             timestamp,
-            error: null
-          })
+            error: null,
+          });
         }
       }
-    }
+    };
 
-    const setError = error => {
+    const setError = (error) => {
       if (!didCancel) {
         setCoordinates({
           accuracy: null,
@@ -65,29 +67,29 @@ const useGeolocation = ({enableHighAccuracy, maximumAge, timeout} = {}, callback
           longitude: null,
           speed: null,
           timestamp: null,
-          error
-        })
+          error,
+        });
       }
-    }
+    };
 
-    let watchId
+    let watchId;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(updateCoordinates, setError)
+      navigator.geolocation.getCurrentPosition(updateCoordinates, setError);
       watchId = navigator.geolocation.watchPosition(
         updateCoordinates,
         setError,
-        {enableHighAccuracy, maximumAge, timeout}
-      )
+        { enableHighAccuracy, maximumAge, timeout }
+      );
     }
     return () => {
       if (watchId) {
-        navigator.geolocation.clearWatch(watchId)
+        navigator.geolocation.clearWatch(watchId);
       }
-      didCancel = true
-    }
-  }, [callback, enableHighAccuracy, maximumAge, timeout])
+      didCancel = true;
+    };
+  }, [callback, enableHighAccuracy, maximumAge, timeout]);
 
-  return coordinates
-}
+  return coordinates;
+};
 
-export default useGeolocation
+export default useGeolocation;
