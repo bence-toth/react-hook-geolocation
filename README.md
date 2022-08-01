@@ -89,4 +89,4 @@ Contributions are welcome. File bug reports, create pull requests, feel free to 
 
 ## Licence
 
-LGPL-3.0
+MIT
