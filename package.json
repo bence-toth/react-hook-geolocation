@@ -8,7 +8,7 @@
     "geolocation"
   ],
   "repository": "git@github.com:bence-toth/react-hook-geolocation.git",
-  "license": "LGPL",
+  "license": "MIT",
   "author": "Bence A. Toth <tothab@gmail.com>",
   "main": "dist/index.js",
   "eslintConfig": {
