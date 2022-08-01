@@ -115,4 +115,47 @@ describe("useGeolocation", () => {
       error: mockError,
     });
   });
+
+  it("handles error from watcher", () => {
+    const mockCoordinates = {
+      latitude: 12.3456789,
+      longitude: 34.5678912,
+      altitude: null,
+      accuracy: 12.345,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null,
+    };
+
+    mockGetCurrentPosition.mockImplementationOnce((onSuccess) =>
+      Promise.resolve(
+        onSuccess({
+          coords: mockCoordinates,
+        })
+      )
+    );
+
+    const mockError = {
+      code: 1,
+      message: "User denied Geolocation",
+    };
+
+    mockWatchPosition.mockImplementationOnce((_, onError) =>
+      Promise.resolve(onError(mockError))
+    );
+
+    const { result } = renderHook(() => useGeolocation());
+
+    expect(result.current).toStrictEqual({
+      accuracy: null,
+      altitude: null,
+      altitudeAccuracy: null,
+      heading: null,
+      latitude: null,
+      longitude: null,
+      speed: null,
+      timestamp: null,
+      error: mockError,
+    });
+  });
 });
