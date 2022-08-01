@@ -13,6 +13,15 @@ const mockGeolocation = {
 
 global.navigator.geolocation = mockGeolocation;
 
+const successHandler = (data, returnValue) => (onSuccess) => {
+  Promise.resolve(onSuccess(data));
+  return returnValue;
+};
+
+const errorHandler = (data) => (_, onError) => {
+  Promise.resolve(onError(data));
+};
+
 describe("useGeolocation", () => {
   it("reads initial geolocation", () => {
     const mockCoordinates = {
@@ -24,14 +33,9 @@ describe("useGeolocation", () => {
       heading: null,
       speed: null,
     };
-
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
-      Promise.resolve(
-        onSuccess({
-          coords: mockCoordinates,
-        })
-      );
-    });
+    mockGetCurrentPosition.mockImplementationOnce(
+      successHandler({ coords: mockCoordinates })
+    );
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -43,7 +47,7 @@ describe("useGeolocation", () => {
   });
 
   it("updates geolocation from watcher", () => {
-    const mockCoordinatesFirst = {
+    const mockCoordinatesInitial = {
       latitude: 12.3456789,
       longitude: 34.5678912,
       altitude: null,
@@ -52,16 +56,11 @@ describe("useGeolocation", () => {
       heading: null,
       speed: null,
     };
+    mockGetCurrentPosition.mockImplementationOnce(
+      successHandler({ coords: mockCoordinatesInitial })
+    );
 
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
-      Promise.resolve(
-        onSuccess({
-          coords: mockCoordinatesFirst,
-        })
-      );
-    });
-
-    const mockCoordinatesSecond = {
+    const mockCoordinatesWatch = {
       latitude: 23.4567891,
       longitude: 45.6789123,
       altitude: null,
@@ -70,22 +69,18 @@ describe("useGeolocation", () => {
       heading: null,
       speed: null,
     };
-
     const mockTimestamp = 1659386826480;
-
-    mockWatchPosition.mockImplementationOnce((onSuccess) => {
-      Promise.resolve(
-        onSuccess({
-          coords: mockCoordinatesSecond,
-          timestamp: mockTimestamp,
-        })
-      );
-    });
+    mockWatchPosition.mockImplementationOnce(
+      successHandler({
+        coords: mockCoordinatesWatch,
+        timestamp: mockTimestamp,
+      })
+    );
 
     const { result } = renderHook(() => useGeolocation());
 
     expect(result.current).toStrictEqual({
-      ...mockCoordinatesSecond,
+      ...mockCoordinatesWatch,
       timestamp: mockTimestamp,
       error: null,
     });
@@ -96,10 +91,7 @@ describe("useGeolocation", () => {
       code: 1,
       message: "User denied Geolocation",
     };
-
-    mockGetCurrentPosition.mockImplementationOnce((_, onError) => {
-      Promise.resolve(onError(mockError));
-    });
+    mockGetCurrentPosition.mockImplementationOnce(errorHandler(mockError));
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -126,23 +118,15 @@ describe("useGeolocation", () => {
       heading: null,
       speed: null,
     };
-
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
-      Promise.resolve(
-        onSuccess({
-          coords: mockCoordinates,
-        })
-      );
-    });
+    mockGetCurrentPosition.mockImplementationOnce(
+      successHandler({ coords: mockCoordinates })
+    );
 
     const mockError = {
       code: 1,
       message: "User denied Geolocation",
     };
-
-    mockWatchPosition.mockImplementationOnce((_, onError) => {
-      Promise.resolve(onError(mockError));
-    });
+    mockWatchPosition.mockImplementationOnce(errorHandler(mockError));
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -162,37 +146,31 @@ describe("useGeolocation", () => {
   it("clears watch", async () => {
     mockClearWatch.mockReset();
 
-    const mockCoordinatesFirst = {
+    const mockCoordinatesInitial = {
       latitude: 12.3456789,
       longitude: 34.5678912,
     };
+    mockGetCurrentPosition.mockImplementationOnce(
+      successHandler({
+        coords: mockCoordinatesInitial,
+      })
+    );
 
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
-      Promise.resolve(
-        onSuccess({
-          coords: mockCoordinatesFirst,
-        })
-      );
-    });
-
-    const mockCoordinatesSecond = {
+    const mockCoordinatesWatch = {
       latitude: 23.4567891,
       longitude: 45.6789123,
     };
-
     const mockTimestamp = 1659386826480;
-
     const mockWatchId = 987;
-
-    mockWatchPosition.mockImplementationOnce((onSuccess) => {
-      Promise.resolve(
-        onSuccess({
-          coords: mockCoordinatesSecond,
+    mockWatchPosition.mockImplementationOnce(
+      successHandler(
+        {
+          coords: mockCoordinatesWatch,
           timestamp: mockTimestamp,
-        })
-      );
-      return mockWatchId;
-    });
+        },
+        mockWatchId
+      )
+    );
 
     renderHook(() => useGeolocation());
 
