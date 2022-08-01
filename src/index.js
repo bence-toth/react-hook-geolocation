@@ -17,7 +17,7 @@ const useGeolocation = (
   });
 
   const updateCoordinates = useCallback(
-    ({ coords = {}, timestamp }) => {
+    ({ coords, timestamp }) => {
       const {
         accuracy,
         altitude,
@@ -40,7 +40,7 @@ const useGeolocation = (
         error: null,
       });
 
-      if (callback instanceof Function) {
+      if (typeof callback === "function") {
         callback({
           accuracy,
           altitude,

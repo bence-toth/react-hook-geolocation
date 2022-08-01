@@ -1,6 +1,6 @@
 {
   "name": "react-hook-geolocation",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "React hook for geolocation access",
   "keywords": [
     "react",
@@ -8,7 +8,7 @@
     "geolocation"
   ],
   "repository": "git@github.com:bence-toth/react-hook-geolocation.git",
-  "license": "LGPL",
+  "license": "MIT",
   "author": "Bence A. Toth <tothab@gmail.com>",
   "main": "dist/index.js",
   "eslintConfig": {
