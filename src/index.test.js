@@ -1,5 +1,5 @@
 import useGeolocation from "./index";
-import { renderHook, act } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 
 const mockGetCurrentPosition = jest.fn();
 const mockWatchPosition = jest.fn();
@@ -25,13 +25,13 @@ describe("useGeolocation", () => {
       speed: null,
     };
 
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) =>
+    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
       Promise.resolve(
         onSuccess({
           coords: mockCoordinates,
         })
-      )
-    );
+      );
+    });
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -53,13 +53,13 @@ describe("useGeolocation", () => {
       speed: null,
     };
 
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) =>
+    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
       Promise.resolve(
         onSuccess({
           coords: mockCoordinatesFirst,
         })
-      )
-    );
+      );
+    });
 
     const mockCoordinatesSecond = {
       latitude: 23.4567891,
@@ -73,14 +73,14 @@ describe("useGeolocation", () => {
 
     const mockTimestamp = 1659386826480;
 
-    mockWatchPosition.mockImplementationOnce((onSuccess) =>
+    mockWatchPosition.mockImplementationOnce((onSuccess) => {
       Promise.resolve(
         onSuccess({
           coords: mockCoordinatesSecond,
           timestamp: mockTimestamp,
         })
-      )
-    );
+      );
+    });
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -97,9 +97,9 @@ describe("useGeolocation", () => {
       message: "User denied Geolocation",
     };
 
-    mockGetCurrentPosition.mockImplementationOnce((_, onError) =>
-      Promise.resolve(onError(mockError))
-    );
+    mockGetCurrentPosition.mockImplementationOnce((_, onError) => {
+      Promise.resolve(onError(mockError));
+    });
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -127,22 +127,22 @@ describe("useGeolocation", () => {
       speed: null,
     };
 
-    mockGetCurrentPosition.mockImplementationOnce((onSuccess) =>
+    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
       Promise.resolve(
         onSuccess({
           coords: mockCoordinates,
         })
-      )
-    );
+      );
+    });
 
     const mockError = {
       code: 1,
       message: "User denied Geolocation",
     };
 
-    mockWatchPosition.mockImplementationOnce((_, onError) =>
-      Promise.resolve(onError(mockError))
-    );
+    mockWatchPosition.mockImplementationOnce((_, onError) => {
+      Promise.resolve(onError(mockError));
+    });
 
     const { result } = renderHook(() => useGeolocation());
 
@@ -156,6 +156,48 @@ describe("useGeolocation", () => {
       speed: null,
       timestamp: null,
       error: mockError,
+    });
+  });
+
+  it("clears watch", async () => {
+    mockClearWatch.mockReset();
+
+    const mockCoordinatesFirst = {
+      latitude: 12.3456789,
+      longitude: 34.5678912,
+    };
+
+    mockGetCurrentPosition.mockImplementationOnce((onSuccess) => {
+      Promise.resolve(
+        onSuccess({
+          coords: mockCoordinatesFirst,
+        })
+      );
+    });
+
+    const mockCoordinatesSecond = {
+      latitude: 23.4567891,
+      longitude: 45.6789123,
+    };
+
+    const mockTimestamp = 1659386826480;
+
+    const mockWatchId = 987;
+
+    mockWatchPosition.mockImplementationOnce((onSuccess) => {
+      Promise.resolve(
+        onSuccess({
+          coords: mockCoordinatesSecond,
+          timestamp: mockTimestamp,
+        })
+      );
+      return mockWatchId;
+    });
+
+    renderHook(() => useGeolocation());
+
+    requestAnimationFrame(() => {
+      expect(mockClearWatch).toHaveBeenCalledWith(mockWatchId);
     });
   });
 });
