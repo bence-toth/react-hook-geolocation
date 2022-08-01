@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const useGeolocation = (
   { enableHighAccuracy, maximumAge, timeout } = {},
@@ -16,9 +16,8 @@ const useGeolocation = (
     error: null,
   });
 
-  useEffect(() => {
-    let didCancel;
-    const updateCoordinates = ({ coords = {}, timestamp }) => {
+  const updateCoordinates = useCallback(
+    ({ coords = {}, timestamp }) => {
       const {
         accuracy,
         altitude,
@@ -28,8 +27,21 @@ const useGeolocation = (
         longitude,
         speed,
       } = coords;
-      if (!didCancel) {
-        setCoordinates({
+
+      setCoordinates({
+        accuracy,
+        altitude,
+        altitudeAccuracy,
+        heading,
+        latitude,
+        longitude,
+        speed,
+        timestamp,
+        error: null,
+      });
+
+      if (callback instanceof Function) {
+        callback({
           accuracy,
           altitude,
           altitudeAccuracy,
@@ -40,54 +52,54 @@ const useGeolocation = (
           timestamp,
           error: null,
         });
-        if (callback instanceof Function) {
-          callback({
-            accuracy,
-            altitude,
-            altitudeAccuracy,
-            heading,
-            latitude,
-            longitude,
-            speed,
-            timestamp,
-            error: null,
-          });
-        }
       }
-    };
+    },
+    [callback]
+  );
 
-    const setError = (error) => {
-      if (!didCancel) {
-        setCoordinates({
-          accuracy: null,
-          altitude: null,
-          altitudeAccuracy: null,
-          heading: null,
-          latitude: null,
-          longitude: null,
-          speed: null,
-          timestamp: null,
-          error,
-        });
-      }
-    };
+  const setError = useCallback((error) => {
+    setCoordinates({
+      accuracy: null,
+      altitude: null,
+      altitudeAccuracy: null,
+      heading: null,
+      latitude: null,
+      longitude: null,
+      speed: null,
+      timestamp: null,
+      error,
+    });
+  }, []);
 
+  useEffect(() => {
     let watchId;
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(updateCoordinates, setError);
       watchId = navigator.geolocation.watchPosition(
         updateCoordinates,
         setError,
-        { enableHighAccuracy, maximumAge, timeout }
+        {
+          enableHighAccuracy,
+          maximumAge,
+          timeout,
+        }
       );
     }
+
     return () => {
       if (watchId) {
         navigator.geolocation.clearWatch(watchId);
       }
-      didCancel = true;
     };
-  }, [callback, enableHighAccuracy, maximumAge, timeout]);
+  }, [
+    callback,
+    enableHighAccuracy,
+    maximumAge,
+    setError,
+    timeout,
+    updateCoordinates,
+  ]);
 
   return coordinates;
 };
