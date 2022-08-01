@@ -20,7 +20,7 @@
     ]
   },
   "scripts": {
-    "build": "rm -rf dist && babel src --out-dir dist && cp ./src/index.d.ts ./dist",
+    "build": "rm -rf dist && babel src --out-dir dist && cp ./src/index.d.ts ./dist && rm ./dist/index.test.js",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "prettier": "prettier --check .",
     "test": "jest --passWithNoTests",
