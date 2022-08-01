@@ -19,7 +19,6 @@ yarn add react-hook-geolocation
 ## Usage
 
 ```jsx
-import React from "react";
 import useGeolocation from "react-hook-geolocation";
 
 const ComponentWithGeolocation = () => {
