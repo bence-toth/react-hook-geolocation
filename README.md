@@ -41,6 +41,14 @@ const ComponentWithGeolocation = () => {
 };
 ```
 
+### Disabling until the user has opted in
+
+You can pass `false` as the third argument to prevent geolocation.
+
+```jsx
+const geolocation = useGeolocation({}, () => {}, false);
+```
+
 ### Using `PositionOptions`
 
 [There is a way](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API#Fine_tuning_response) to use `PositionOptions` to fine tune response coming from `watchPosition` of the Geolocation API.

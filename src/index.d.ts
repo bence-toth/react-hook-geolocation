@@ -7,6 +7,7 @@ declare module "react-hook-geolocation" {
 
   export default function useGeolocation(
     positionOptions?: PositionOptions,
-    callback?: (geolocation: EnrichedGeolocationCoordinates) => void
+    callback?: (geolocation: EnrichedGeolocationCoordinates) => void,
+    enable?: boolean
   ): EnrichedGeolocationCoordinates;
 }
