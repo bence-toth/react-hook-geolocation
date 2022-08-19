@@ -71,7 +71,7 @@ const geolocation = useGeolocation({}, onGeolocationUpdate);
 
 ### Waiting for the user to opt in
 
-Best practice is to only try to geolocate the user on the user’s request, or at least when it is indicated to the user why the browser is asking for their location.
+The best practice is to only try to geolocate the user on the user’s request, or at least when it is indicated to the user why the browser is asking for their location.
 
 If you would like to bail out of this hook immediately asking for geolocation access from the user when the component mounts, you can pass a third `isEnabled` parameter to the hook with the value `false`, and set it to `true` later once the reason for asking for geolocation is indicated to the user.
 
