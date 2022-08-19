@@ -43,7 +43,9 @@ describe("useGeolocation", () => {
         successHandler({ coords: mockCoordinates })
       );
 
-      const { result } = renderHook(() => useGeolocation({}, mockCallback, false));
+      const { result } = renderHook(() =>
+        useGeolocation({}, mockCallback, false)
+      );
 
       expect(result.current).toStrictEqual({
         latitude: null,
