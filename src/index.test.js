@@ -24,10 +24,44 @@ const errorHandler = (data) => (_, onError) => {
 };
 
 describe("useGeolocation", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe("when geolocation data is available", () => {
-    beforeEach(() => {
-      mockCallback.mockReset();
-      mockClearWatch.mockReset();
+    it("does nothing if the enable switch is false", () => {
+      const mockCoordinates = {
+        latitude: 12.3456789,
+        longitude: 34.5678912,
+        altitude: null,
+        accuracy: 12.345,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null,
+      };
+      mockGetCurrentPosition.mockImplementationOnce(
+        successHandler({ coords: mockCoordinates })
+      );
+
+      const { result } = renderHook(() => useGeolocation({}, mockCallback, false));
+
+      expect(result.current).toStrictEqual({
+        latitude: null,
+        longitude: null,
+        altitude: null,
+        accuracy: null,
+        altitudeAccuracy: null,
+        heading: null,
+        speed: null,
+        timestamp: null,
+        error: null,
+      });
+
+      requestAnimationFrame(() => {
+        expect(mockGetCurrentPosition).notToHaveBeenCalled();
+        expect(mockWatchPosition).notToHaveBeenCalled();
+        expect(mockCallback).notToHaveBeenCalled();
+      });
     });
 
     it("reads initial geolocation", () => {
