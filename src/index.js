@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 const useGeolocation = (
   { enableHighAccuracy, maximumAge, timeout } = {},
   callback,
-  enable = true
+  isEnabled = true
 ) => {
   const [coordinates, setCoordinates] = useState({
     accuracy: null,
@@ -73,11 +73,9 @@ const useGeolocation = (
   }, []);
 
   useEffect(() => {
-    if (!enable) return;
-
     let watchId;
 
-    if (navigator.geolocation) {
+    if (isEnabled && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(updateCoordinates, setError);
       watchId = navigator.geolocation.watchPosition(
         updateCoordinates,
@@ -96,7 +94,7 @@ const useGeolocation = (
       }
     };
   }, [
-    enable,
+    isEnabled,
     callback,
     enableHighAccuracy,
     maximumAge,

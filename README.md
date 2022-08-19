@@ -41,14 +41,6 @@ const ComponentWithGeolocation = () => {
 };
 ```
 
-### Disabling until the user has opted in
-
-You can pass `false` as the third argument to prevent geolocation.
-
-```jsx
-const geolocation = useGeolocation({}, () => {}, false);
-```
-
 ### Using `PositionOptions`
 
 [There is a way](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API#Fine_tuning_response) to use `PositionOptions` to fine tune response coming from `watchPosition` of the Geolocation API.
@@ -76,6 +68,18 @@ const onGeolocationUpdate = (geolocation) => {
 
 const geolocation = useGeolocation({}, onGeolocationUpdate);
 ```
+
+### Waiting for the user to opt in
+
+The best practice is to only try to geolocate the user on the user’s request, or at least when it is indicated to the user why the browser is asking for their location.
+
+If you would like to bail out of this hook immediately asking for geolocation access from the user when the component mounts, you can pass a third `isEnabled` parameter to the hook with the value `false`, and set it to `true` later once the reason for asking for geolocation is indicated to the user.
+
+```jsx
+const geolocation = useGeolocation({}, () => {}, false);
+```
+
+Setting this parameter from `true` to `false` will not cut access to already retrieved geolocation data, it will however stop watching for changes in geolocation data until the parameter is set back to `true` again.
 
 ## Notes
 
