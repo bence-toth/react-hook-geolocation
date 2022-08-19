@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 const useGeolocation = (
   { enableHighAccuracy, maximumAge, timeout } = {},
   callback,
-  enable = true
+  isEnabled = true
 ) => {
   const [coordinates, setCoordinates] = useState({
     accuracy: null,
@@ -73,7 +73,7 @@ const useGeolocation = (
   }, []);
 
   useEffect(() => {
-    if (!enable) return;
+    if (!isEnabled) return;
 
     let watchId;
 
@@ -96,7 +96,7 @@ const useGeolocation = (
       }
     };
   }, [
-    enable,
+    isEnabled,
     callback,
     enableHighAccuracy,
     maximumAge,
