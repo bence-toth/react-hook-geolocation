@@ -73,11 +73,9 @@ const useGeolocation = (
   }, []);
 
   useEffect(() => {
-    if (!isEnabled) return;
-
     let watchId;
 
-    if (navigator.geolocation) {
+    if (isEnabled && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(updateCoordinates, setError);
       watchId = navigator.geolocation.watchPosition(
         updateCoordinates,
