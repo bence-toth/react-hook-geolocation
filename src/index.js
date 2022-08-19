@@ -88,10 +88,6 @@ const useGeolocation = (
       );
     }
 
-    if (!isEnabled && watchId) {
-      navigator.geolocation.clearWatch(watchId);
-    }
-
     return () => {
       if (watchId) {
         navigator.geolocation.clearWatch(watchId);
