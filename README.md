@@ -61,7 +61,7 @@ You can supply a second parameter to `useGeolocation` which will be called every
 
 To prevent unnecessary renders you can wrap your callback function in a `useCallback` hook to preserve its referential safety.
 
-If you don't use `PositionOptions`, I recommend that you supply `{}` as your first argument.
+If you don’t use `PositionOptions`, I recommend that you supply `{}` as your first argument.
 
 ```jsx
 const onGeolocationUpdate = useCallback((geolocation) => {
