@@ -24,7 +24,15 @@ import useGeolocation from "react-hook-geolocation";
 const ComponentWithGeolocation = () => {
   const geolocation = useGeolocation();
 
-  return !geolocation.error ? (
+  if (geolocation.error) {
+    return <p>No geolocation, sorry.</p>;
+  }
+
+  if (geolocation.isLoading) {
+    return <p>Geolocation data is loading...</p>;
+  }
+
+  return (
     <ul>
       <li>Latitude: {geolocation.latitude}</li>
       <li>Longitude: {geolocation.longitude}</li>
@@ -35,8 +43,6 @@ const ComponentWithGeolocation = () => {
       <li>Speed: {geolocation.speed}</li>
       <li>Timestamp: {geolocation.timestamp}</li>
     </ul>
-  ) : (
-    <p>No geolocation, sorry.</p>
   );
 };
 ```
