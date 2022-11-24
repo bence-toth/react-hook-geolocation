@@ -15,6 +15,7 @@ const useGeolocation = (
     speed: null,
     timestamp: null,
     error: null,
+    isLoading: true,
   });
 
   const updateCoordinates = useCallback(
@@ -39,6 +40,7 @@ const useGeolocation = (
         speed,
         timestamp,
         error: null,
+        isLoading: false,
       });
 
       if (typeof callback === "function") {
@@ -52,6 +54,7 @@ const useGeolocation = (
           speed,
           timestamp,
           error: null,
+          isLoading: false,
         });
       }
     },
@@ -69,6 +72,7 @@ const useGeolocation = (
       speed: null,
       timestamp: null,
       error,
+      isLoading: false,
     });
   }, []);
 
