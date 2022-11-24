@@ -14,7 +14,13 @@ const useGeolocation = (
     longitude: null,
     speed: null,
     timestamp: null,
-    error: null,
+    error:
+      navigator.geolocation !== undefined
+        ? null
+        : new Error(
+            "The acquisition of the geolocation information failed due to the lack of user agent support."
+          ),
+    isLoading: navigator.geolocation !== undefined && isEnabled,
   });
 
   const updateCoordinates = useCallback(
@@ -39,6 +45,7 @@ const useGeolocation = (
         speed,
         timestamp,
         error: null,
+        isLoading: false,
       });
 
       if (typeof callback === "function") {
@@ -52,6 +59,7 @@ const useGeolocation = (
           speed,
           timestamp,
           error: null,
+          isLoading: false,
         });
       }
     },
@@ -69,8 +77,18 @@ const useGeolocation = (
       speed: null,
       timestamp: null,
       error,
+      isLoading: false,
     });
   }, []);
+
+  useEffect(() => {
+    if (isEnabled === true) {
+      setCoordinates((previousCoordinates) => ({
+        ...previousCoordinates,
+        isLoading: true,
+      }));
+    }
+  }, [isEnabled]);
 
   useEffect(() => {
     let watchId;

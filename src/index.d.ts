@@ -3,6 +3,7 @@ declare module "react-hook-geolocation" {
     extends GeolocationCoordinates {
     timestamp: GeolocationPosition["timestamp"] | null;
     error: GeolocationPositionError | null;
+    isLoading: boolean;
   }
 
   export default function useGeolocation(
