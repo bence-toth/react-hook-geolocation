@@ -49,6 +49,7 @@ describe("useGeolocation", () => {
         ...mockCoordinates,
         timestamp: undefined,
         error: null,
+        isLoading: false,
       });
 
       requestAnimationFrame(() => {
@@ -56,6 +57,7 @@ describe("useGeolocation", () => {
           ...mockCoordinates,
           timestamp: undefined,
           error: null,
+          isLoading: false,
         });
       });
     });
@@ -97,6 +99,7 @@ describe("useGeolocation", () => {
         ...mockCoordinatesWatch,
         timestamp: mockTimestamp,
         error: null,
+        isLoading: false,
       });
 
       requestAnimationFrame(() => {
@@ -105,11 +108,13 @@ describe("useGeolocation", () => {
           ...mockCoordinatesInitial,
           timestamp: undefined,
           error: null,
+          isLoading: false,
         });
         expect(mockCallback).toHaveBeenCalledWith({
           ...mockCoordinatesWatch,
           timestamp: mockTimestamp,
           error: null,
+          isLoading: false,
         });
       });
     });
@@ -176,6 +181,7 @@ describe("useGeolocation", () => {
         speed: null,
         timestamp: null,
         error: null,
+        isLoading: false,
       });
 
       requestAnimationFrame(() => {
@@ -206,6 +212,7 @@ describe("useGeolocation", () => {
         speed: null,
         timestamp: null,
         error: mockError,
+        isLoading: false,
       });
     });
 
@@ -241,6 +248,7 @@ describe("useGeolocation", () => {
         speed: null,
         timestamp: null,
         error: mockError,
+        isLoading: false,
       });
     });
   });
@@ -262,7 +270,10 @@ describe("useGeolocation", () => {
         longitude: null,
         speed: null,
         timestamp: null,
-        error: null,
+        error: new Error(
+          "The acquisition of the geolocation information failed due to the lack of user agent support."
+        ),
+        isLoading: true,
       });
     });
   });
