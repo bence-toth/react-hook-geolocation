@@ -70,6 +70,8 @@ To prevent unnecessary renders you can wrap your callback function in a `useCall
 If you don’t use `PositionOptions`, I recommend that you supply `{}` as your first argument.
 
 ```jsx
+import { useCallback } from "react";
+
 const onGeolocationUpdate = useCallback((geolocation) => {
   console.log("Here’s some new data from the Geolocation API: ", geolocation);
 }, []);

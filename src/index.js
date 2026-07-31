@@ -15,12 +15,15 @@ const useGeolocation = (
     speed: null,
     timestamp: null,
     error:
-      navigator.geolocation !== undefined
+      typeof navigator !== "undefined" && navigator.geolocation !== undefined
         ? null
         : new Error(
             "The acquisition of the geolocation information failed due to the lack of user agent support."
           ),
-    isLoading: navigator.geolocation !== undefined && isEnabled,
+    isLoading:
+      typeof navigator !== "undefined" &&
+      navigator.geolocation !== undefined &&
+      isEnabled,
   });
 
   const updateCoordinates = useCallback(
@@ -82,12 +85,13 @@ const useGeolocation = (
   }, []);
 
   useEffect(() => {
-    if (isEnabled === true) {
-      setCoordinates((previousCoordinates) => ({
-        ...previousCoordinates,
-        isLoading: true,
-      }));
-    }
+    setCoordinates((previousCoordinates) => ({
+      ...previousCoordinates,
+      isLoading:
+        isEnabled &&
+        typeof navigator !== "undefined" &&
+        navigator.geolocation !== undefined,
+    }));
   }, [isEnabled]);
 
   useEffect(() => {

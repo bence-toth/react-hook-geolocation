@@ -273,7 +273,7 @@ describe("useGeolocation", () => {
         error: new Error(
           "The acquisition of the geolocation information failed due to the lack of user agent support."
         ),
-        isLoading: true,
+        isLoading: false,
       });
     });
   });
